@@ -2,9 +2,18 @@
 using ClosedXML.Excel;
 
 Console.WriteLine("Welcome to filepath generator...");
+
+Console.WriteLine("Please enter the full path to the .xlsx file containing file names:");
+string excelPath = Console.ReadLine()?.Trim().Trim('"'); // <-- Dodane usuwanie cudzysłowu
+
+while (string.IsNullOrEmpty(excelPath) || !File.Exists(excelPath) || !excelPath.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
+{
+    Console.WriteLine("Invalid path or file does not exist. Please enter a valid .xlsx file path:");
+    excelPath = Console.ReadLine()?.Trim().Trim('"'); // <-- Dodane usuwanie cudzysłowu
+}
+
 // Set the directory to search
 string searchDirectory = @"C:\REPOS\MC_8_DEV\Acceptance\FeLinesTests";
-string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FilesNames.xlsx");
 string outputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FoundFilePaths.txt");
 Console.WriteLine("searchDirectory : " + searchDirectory);
 Console.WriteLine("excelPath : " + excelPath);
